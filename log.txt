@@ -1,0 +1,6 @@
+hello
+cat myshrc.txt
+hello
+hello -l
+reveal
+hello
