@@ -1,0 +1,33 @@
+# Compiler and flags
+CC = gcc
+CFLAGS = -IHEADERS -Wall -g
+
+# Directories
+SRCDIR = SOURCE
+INCDIR = HEADERS
+OBJDIR = obj
+
+# Source and object files
+SOURCES = $(wildcard $(SRCDIR)/*.c)
+OBJECTS = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SOURCES))
+
+# Output executable
+EXEC = a.out
+
+# Default rule
+$(EXEC): $(OBJECTS)
+	$(CC) $(OBJECTS) -o $(EXEC)
+
+# Rule to build object files
+$(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Create obj directory if it doesn't exist
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+
+# Clean up
+.PHONY: clean
+clean:
+	rm -rf $(OBJDIR) $(EXEC)
+
